@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Calculate</title>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<input type="text" v-model="num1" />
+			<select v-model="opt">
+				<option value="+">+</option>
+				<option value="-">-</option>
+				<option value="*">*</option>
+				<option value="/">/</option>
+			</select>
+			<input type="text" v-model="num2" />
+			<input type="button" value="=" @click="calc" />
+			<input type="text" v-model="result" />
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					num1: 0,
+					num2: 0,
+					result: 0,
+					opt: '+'
+				},
+				methods: {
+					calc() { //计算器计算方法
+						/*switch(this.opt) {
+							case "+":
+								this.result = parseInt(this.num1) + parseInt(this.num2);
+								break;
+							case "-":
+								this.result = parseInt(this.num1) - parseInt(this.num2);
+								break;
+							case "*":
+								this.result = parseInt(this.num1) * parseInt(this.num2);
+								break;
+							case "/":
+								this.result = parseInt(this.num1) / parseInt(this.num2);
+								break;
+						}*/
+						//这是投机取巧的方式，正式开发中，尽量少用
+						var codeStr = 'parseInt(this.num1)' + this.opt + 'parseInt(this.num2)';
+						this.result = eval(codeStr);
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

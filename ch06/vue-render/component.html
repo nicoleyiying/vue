@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>render</title>
+		<script type="text/javascript" src="js/vue.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<login></login>
+		</div>
+		<script type="text/javascript">
+			var login = {
+				template:'<h1>This is login component. </h1>'
+			}
+			var vm = new Vue({
+				el:'#app',
+				data:{},
+				methods:{},
+				components:{
+					login
+				}
+			});
+		</script>
+	</body>
+</html>

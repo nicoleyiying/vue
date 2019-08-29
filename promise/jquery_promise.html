@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>jquery promise</title>
+	</head>
+
+	<body>
+		<input type="button" value="get data" id='btn' />
+		<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+		<script>
+			$(function() {
+				$('#btn').on('click', function() {
+					$.ajax({
+						type: "get",
+						url: "./data.json",
+						dataType: 'json',
+						/*success:function(data){
+							console.log(data)
+						}*/
+					}).then(function(data) {
+						console.log(data)
+					});
+				})
+			});
+		</script>
+	</body>
+
+</html>

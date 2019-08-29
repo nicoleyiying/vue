@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>demo01</title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<p>{{ msg | msgFormat('crazy',' and complex') | test }}</p>
+		</div>
+		<script type="text/javascript">
+			//定义一个 Vue 全局过滤器 msgFormat
+			Vue.filter('msgFormat', function(msg, arg1, arg2) {
+				return msg.replace(/simple/g, arg1 + arg2);
+			});
+			Vue.filter('test', function(msg) {
+				return msg + '=========';
+			});
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					msg: "Who is the simple message? I'am a simple message. "
+				},
+				methods: {}
+			});
+			//过滤器的定义语法
+			//过滤器中的 function 第一个参数被规定死了，永远都是过滤器管道符前面传递过来的数据
+			/*Vue.filter('过滤器的名称',function(data){
+				return data + '132';
+			});*/
+			/*filters: { //私有过滤器，只能在当前 VM 对象所控制的 View 区域进行使用
+				dataFormat(input, pattern = "") { //在参数列表中，通过 pattern="" 来指定形参默认值，防止报错
+					var dt = new Date(input);
+					//获取年月日
+					var y = dt.getFullYear();
+					var m = (dt.getMonth()+1).toString().padStart(2,'0');
+					var d = dt.getDate().toString().padStart(2,'0');
+					//如果传递进来的字符串类型转为小写之后，等于 yyy-mm-dd,那么就返回年-月-日
+					//否则，就返回 年-月-日 时:分:秒
+					if (pattern.toLowerCase() === 'yyy-mm-dd'){
+						return `${y}-${m}-${d}`;
+					} else {
+						return `${y}-${m}-${d}`;
+					}
+				}
+			}*/
+		</script>
+		<!-- 过滤器调用时格式  {{name | 过滤器的名称}}-->
+	</body>
+
+</html>

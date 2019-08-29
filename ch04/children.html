@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>children</title>
+		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/vue-router.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<router-link to="/account">Account</router-link>
+			<router-view></router-view>
+		</div>
+		<template id="tmpl1">
+			<div>
+				<h1>This is the Account component. </h1>
+				<router-link to="/account/login">login</router-link>
+				<router-link to="/account/register">register</router-link>
+				<router-view></router-view>
+			</div>
+		</template>
+		<template id="tmpl2">
+			<div>
+				<h1>This is the login component. </h1>
+			</div>
+		</template>
+		<template id="tmpl3">
+			<div>
+				<h1>This is the register component. </h1>
+			</div>
+		</template>
+		<script type="text/javascript">
+			//组件的模板对象
+			var account = {
+				template:'#tmpl1'
+			};
+			var login = {
+				template:'#tmpl2'
+			};
+			var register = {
+				template:'#tmpl3'
+			};
+			var router = new VueRouter({
+				routes:[
+					{
+						path:'/account',
+						component:account,
+						/* 使用 children 属性，实现子路由，同时，子路由的 path 前面，不要带 /，
+						 * 否则永远以根路径开始请求，这样不方便我们用户去理解URL地址*/
+						children:[
+							{
+								path:'login',
+								component:login
+							},
+							{
+								path:'register',
+								component:register
+							}
+						]
+					}
+				]
+			});
+			var vm = new Vue({
+				el:'#app',
+				data:{},
+				methods:{},
+				router
+			});
+		</script>
+	</body>
+</html>

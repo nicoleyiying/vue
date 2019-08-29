@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>children</title>
+		<script type="text/javascript" src="js/vue.js" ></script>
+		<script type="text/javascript" src="js/vue-router.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<com :parentmsg='msg' @func="getMsgFromSon"></com>
+		</div>
+		<template id="tmpl">
+			<div>
+				<h1>This is subelement. --- {{ parentmsg }}</h1>
+				<input type="button" value="pass msg" @click="sendMsg" />				
+			</div>
+		</template>
+		<script type="text/javascript">
+			var com = {
+				template:'#tmpl',
+				props:['parentmsg'],
+				data(){
+					return {
+						msg:'This is the data of children. '
+					};
+				},
+				methods:{
+					sendMsg(){
+						this.$emit('func',this.msg);
+					}
+				}
+			};
+			var vm = new Vue({
+				el:'#app',
+				data:{
+					msg:'This is the data of parent. ',
+					msgFromSon:''
+				},
+				methods:{
+					getMsgFromSon(data){
+						this.msgFromSon = data;
+						console.log(this.msgFromSon);
+					}
+				},
+				components:{
+					com
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>route</title>
+	</head>
+	<script type="text/javascript" src="js/vue.js" ></script>
+	<script type="text/javascript" src="js/vue-router.js" ></script>
+	<style type="text/css">
+		.router-link-active,.myclass {
+			background: #aaa;
+			color: #1B6D85;
+		}
+	</style>
+	<body>
+		<div id="app">
+			<router-link to="/login" tag="span">Login</router-link>
+			<router-link to="/register" tag="span">Register</router-link>
+			<!-- 容器 -->
+			<router-view></router-view>
+		</div>
+		<script type="text/javascript">
+			//创建子组件
+			var login = {
+				template:'<h1>Login Component</h1>'
+			};
+			var register = {
+				template:'<h1>Register Component</h1>'
+			};
+			//创建一个路由对象
+			var router = new VueRouter({
+				//路由规则数组
+				routes:[
+					{
+						path:'/',
+						redirect:'/login'
+					},
+					{
+						path:'/login',
+						component:login
+					},
+					{
+						path:'/register',
+						component:register
+					}
+				],
+				//与激活相关的类
+				LinkActiveClass:'myclass'
+			});
+			var vm = new Vue({
+				el:'#app',
+				data:{},
+				methods:{},
+				components:{
+					login,
+					register
+				},
+				//router：router
+				router,
+				watch:{
+					//this.$route.path;
+					'$route.path':function(newVal,oldVal){
+						//console.log(newVal+'---'+oldVal);
+						if (newVal === '/login') {
+							console.log('Welcome to login page!');
+						} else if (newVal === '/register') {
+							console.log('Welcome to register page!');							
+						}
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

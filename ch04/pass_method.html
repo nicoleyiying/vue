@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>pass value</title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<!-- 
+				父组件向子组件 传递 方法，使用的是 事件绑定机制； v-on/@, 
+				当我们自定义了 一个 事件属性之后，子组件就能够，通过某些方式来调用 传递进去的 这个方法了 				
+			-->
+			<com @func="show"></com>
+		</div>
+		<template id="tmpl">
+			<div>
+				<h1>This is a subcomponent. </h1>
+				<input type="button" @click="myclick" value="This is a button of subcomponent,click it to trigger the func method passed bythe parent component. " />
+			</div>
+		</template>
+		<script>
+			// 定义了一个字面量类型的 组件模板对象
+			var com = {
+				// 通过指定了一个 Id, 表示 说，要去加载 这个指定Id的 template 元素中的内容，当作 组件的HTML结构
+				template: '#tmpl',
+				data(){
+					return {
+						sonmsg:{name:'son',age:6}
+					}
+				},
+				methods: {
+					myclick() {
+						// 当点击子组件的按钮的时候，如何 拿到 父组件传递过来的 func 方法，并调用这个方法
+						// emit 英文原意： 触发，调用、发射
+						//this.$emit('func',123,456);
+						this.$emit('func',this.sonmsg);
+					}
+				}
+			};
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					datamsgFromSon:null
+				},
+				methods: {
+					show(data) {
+						//console.log('Called the show method on the parent component. ---');
+						//console.log(data);
+						this.datamsgFromSon=data;
+					}
+				},
+				components: {
+					com: com
+				}
+			});
+		</script>
+	</body>
+
+</html>

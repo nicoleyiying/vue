@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>watch</title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<input type="text" v-model="firstname" /> +
+			<input type="text" v-model="lastname" /> =
+			<input type="text" v-model="fullname" />
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					firstname: '',
+					lastname: '',
+					fullname: ''
+				},
+				methods: {},
+				// 使用这个 属性，可以监视 data 中指定数据的变化，然后触发这个 watch 中对应的 function 处理函数
+				watch: {
+					firstname: function(newVal, oldVal) {
+						//console.log('watched the change of firstname');
+						//this.fullname = this.firstname + '-' + this.lastname;
+						//console.log(newVal +'---' +oldVal);
+						this.fullname = newVal + '-' + this.lastname;
+					},
+					lastname: function(newVal) {
+						//console.log('watched the change of firstname');
+						//this.fullname = this.firstname + '-' + this.lastname;
+						//console.log(newVal +'---' +oldVal);
+						this.fullname = this.firstname + '-' + newVal;
+					},
+				}
+			});
+		</script>
+	</body>
+
+</html>

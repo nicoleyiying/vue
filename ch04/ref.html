@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>ref</title>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<input type="button" value="get element" @click="getElement" ref="mybtn" />
+			<!-- 使用 ref 获取元素 -->
+			<h3 id="myh3" ref='myh3'>Today is sunny.</h3>
+			<!-- 使用 ref 获取子组件 -->
+			<login ref='mylogin'></login>
+		</div>
+		<script type="text/javascript">
+			var login = {
+				template:'<h1>login component</h1>',
+				data(){
+					return {
+						msg:'son msg'
+					}
+				},
+				methods:{
+					show(){
+						console.log('called the method of subcomponent');
+					}
+				}
+			};
+			var vm = new Vue({
+				el: '#app',
+				data: {},
+				methods: {
+					getElement() {
+						//console.log(document.getElementById('myh3').innerText);
+						//ref 是 英文单词 【reference】   值类型 和 引用类型  referenceError
+						//console.log(this.$refs.myh3.innerText);
+						//console.log(this.$refs.mylogin.msg);
+						this.$refs.mylogin.show();
+					}
+				},
+				components:{
+					login
+				}
+			});
+		</script>
+	</body>
+
+</html>

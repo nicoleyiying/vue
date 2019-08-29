@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>demo06</title>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<p v-for="(item,i) in list1">{{item}} --- {{i}}</p>
+			<ul>
+				<li v-for="(item, i) in list2">索引：{{i}} --- 姓名：{{item.name}} --- 年龄：{{item.age}} --- ID：{{item.id}}</li>
+			</ul>
+			<!-- 在循环遍历对象身上的键值对时，除了有 val key, 在第三个位置还有一个索引 -->
+			<p v-for="(val, key, i) in userInfo">value:{{val}} --- key:{{key}} --- index:{{i}}</p>
+			<!-- in 后面：普通数组，对象数组，对象，数字 -->
+			<p v-for="i in 10">这是第 {{i}} 个 p 标签</p>
+			<!-- 如果使用 v-for 迭代数字，前面的  i 从 1 开始 -->
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					list1:[1,2,3,4,5,6],
+					list2:[
+						{id:1,name:'zs',age:18},
+						{id:2,name:'ls',age:21},
+						{id:3,name:'ww',age:23},
+						{id:4,name:'ll',age:19}
+					],
+					userInfo:{
+						id:1,
+						name:'Tony',
+						gender:'man'
+					}
+				},
+				methods:{}
+			});
+		</script>
+	</body>
+</html>

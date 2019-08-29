@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>data methods</title>
+		<script type="text/javascript" src="js/vue.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<mycom1></mycom1>
+			<counter></counter>
+			<hr />
+			<counter></counter>
+			<hr />
+			<counter></counter>
+		</div>
+		<template id="tmpl">
+			<div>
+				<input type="button" value="+1" @click="increment" />
+				<h3>{{count}}</h3>
+			</div>
+		</template>
+		<script>
+			//var dataObj = {count:0};
+			Vue.component('counter',{
+				template:'#tmpl',
+				data:function(){
+					//return dataObj;//会相互影响
+					return {count:0};
+				},
+				methods:{
+					increment(){
+						this.count++;
+					}
+				}
+			});
+			/* 1. 组件可以有自己的 data 数据
+			 * 2. 组件的 data 和 实例的 data 有点不一样,实例中的 data 可以为一个对象,但是 组件中的 data 必须是一个方法
+			 * 3. 组件中的 data 除了必须为一个方法之外,这个方法内部,还必须返回一个对象才行;
+			 * 4. 组件中的 data 数据,使用方式,和实例中的 data 使用方式完全一样!!!*/
+			Vue.component('mycom1',{
+				template:'<h1>This is a global component. ---{{msg}}</h1>',
+				data:function(){
+					return {
+						msg:'This is the data defined by the data in the component.  '
+					};
+				},
+			})
+			var vm = new Vue({
+				el:"#app",
+				data:{},
+				methods:{}
+			});
+		</script>
+	</body>
+</html>
